@@ -11,6 +11,7 @@ include(rpath.pri)
 TARGET = $$qtLibraryName($$TARGET)
 
 CONFIG += shared dll
+CONFIG += c++11
 
 contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
 

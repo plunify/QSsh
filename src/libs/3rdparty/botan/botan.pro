@@ -1,5 +1,6 @@
 TEMPLATE = lib
 TARGET = Botan
+CONFIG += c++11
 
 PRECOMPILED_HEADER = ../precompiled_headers/botan_pch.h
 

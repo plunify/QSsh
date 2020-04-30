@@ -6,6 +6,7 @@ isEmpty(QSSH_PREFIX) {
 }
 
 isEqual(QT_MAJOR_VERSION, 5) {
+CONFIG += c++11
 
 defineReplace(cleanPath) {
     return($$clean_path($$1))

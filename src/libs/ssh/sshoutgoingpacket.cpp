@@ -136,7 +136,8 @@ void SshOutgoingPacket::generateIgnorePacket()
 
 void SshOutgoingPacket::generateInvalidMessagePacket()
 {
-    init(SSH_MSG_INVALID).finalize();
+    //init(SSH_MSG_IGNORE).finalize();
+    init(SSH_MSG_IGNORE).appendString("keepalive@openssh.com").finalize();
 }
 
 void SshOutgoingPacket::generateSessionPacket(quint32 channelId,

@@ -7,6 +7,8 @@
 
 #include "botan.h"
 #include <deque>
+#include <utility>
+#include <string>
 
 #ifdef Q_OS_WIN
 #ifndef NOMINMAX
@@ -2733,6 +2735,7 @@ inline void word3_muladd_2(word* w2, word* w1, word* w0, word a, word b)
 */
 
 #include <algorithm>
+#include <utility>
 
 namespace Botan {
 
@@ -2863,6 +2866,7 @@ OctetString operator^(const OctetString& k1, const OctetString& k2)
 
 
 #include <algorithm>
+#include <utility>
 
 namespace Botan {
 
@@ -3246,6 +3250,7 @@ size_t static_provider_weight(const std::string& prov_name)
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <utility>
 
 #ifndef MAP_FAILED
    #define MAP_FAILED -1
@@ -3386,6 +3391,7 @@ void MemoryMapping_Allocator::dealloc_block(void* ptr, size_t n)
 
 #include <algorithm>
 #include <exception>
+#include <utility>
 
 namespace Botan {
 
@@ -3633,6 +3639,7 @@ void Pooling_Allocator::get_more_core(size_t in_bytes)
 
 #include <cstdlib>
 #include <cstring>
+#include <utility>
 
 namespace Botan {
 
@@ -5287,6 +5294,7 @@ BER_Decoder& BER_Decoder::decode_optional_string(MemoryRegion<byte>& out,
 */
 
 #include <algorithm>
+#include <utility>
 
 namespace Botan {
 
@@ -5959,6 +5967,7 @@ void X509_DN::decode_from(BER_Decoder& source)
 */
 
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -11606,6 +11615,7 @@ RC5::RC5(size_t rounds)
 */
 
 #include <algorithm>
+#include <utility>
 
 namespace Botan {
 
@@ -15383,6 +15393,7 @@ u32bit PKCS10_Request::path_limit() const
 #include <iterator>
 #include <memory>
 #include <set>
+#include <utility>
 
 namespace Botan {
 
@@ -15624,6 +15635,7 @@ PK_Signer* choose_sig_format(const Private_Key& key,
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -16198,6 +16210,7 @@ void CRL_ReasonCode::contents_to(Data_Store& info, Data_Store&) const
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -16429,6 +16442,7 @@ void X509_Object::do_decode()
 #include <algorithm>
 #include <iterator>
 #include <sstream>
+#include <utility>
 
 namespace Botan {
 
@@ -17233,6 +17247,7 @@ X509_Cert_Options::X509_Cert_Options(const std::string& initial_opts,
 */
 
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -17394,6 +17409,7 @@ PKCS10_Request create_cert_req(const X509_Cert_Options& opts,
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -18327,6 +18343,7 @@ void CRC32::final_result(byte output[])
 */
 
 #include <stdexcept>
+#include <utility>
 
 namespace Botan {
 
@@ -18574,6 +18591,7 @@ SecureVector<byte> base64_decode(const std::string& input,
 */
 
 #include <stdexcept>
+#include <utility>
 
 namespace Botan {
 
@@ -19363,6 +19381,7 @@ std::string decrypt(const std::string& input,
 */
 
 #include <stdexcept>
+#include <utility>
 
 namespace Botan {
 
@@ -19549,6 +19568,7 @@ BigInt fe1_decrypt(const BigInt& n, const BigInt& X0,
 */
 
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -19665,6 +19685,7 @@ SecureVector<byte> rfc3394_keyunwrap(const MemoryRegion<byte>& key,
 */
 
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -19840,6 +19861,7 @@ SymmetricKey SRP6_Server_Session::step2(const BigInt& A)
 */
 
 #include <memory>
+#include <utility>
 
 namespace Botan {
 
@@ -20096,6 +20118,7 @@ RTSS_Share::reconstruct(const std::vector<RTSS_Share>& shares)
 */
 
 #include <memory>
+#include <utility>
 
 #if defined(BOTAN_HAS_ECB)
 #endif
@@ -20751,6 +20774,7 @@ BlockCipher* Core_Engine::find_block_cipher(const SCAN_Name& request,
 */
 
 #include <memory>
+#include <utility>
 
 #if defined(BOTAN_HAS_ADLER32)
 #endif
@@ -21854,6 +21878,8 @@ void High_Resolution_Timestamp::poll(Entropy_Accumulator& accum)
 #include <unistd.h>
 #include <dirent.h>
 #include <fcntl.h>
+#include <utility>
+#include <string>
 
 namespace Botan {
 
@@ -21906,10 +21932,10 @@ std::pair<struct dirent*, std::string> Directory_Walker::get_next_dirent()
    {
    while(m_cur_dir.first)
       {
-      struct dirent* dir = ::readdir(m_cur_dir.first);
+      //struct dirent* dir = ::readdir(m_cur_dir.first);
 
-      if(dir)
-         return std::make_pair<struct dirent*, std::string>(dir, m_cur_dir.second);
+      if(struct dirent* dir = ::readdir(m_cur_dir.first))
+         return std::make_pair(dir, m_cur_dir.second);
 
       ::closedir(m_cur_dir.first);
       m_cur_dir = std::make_pair<DIR*, std::string>(0, "");

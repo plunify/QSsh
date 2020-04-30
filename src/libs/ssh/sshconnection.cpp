@@ -377,19 +377,19 @@ void SshConnectionPrivate::handleServerId()
     // and the minus sign"
     QString legalString = QLatin1String("[]!\"#$!&'()*+,./0-9:;<=>?@A-Z[\\\\^_`a-z{|}~]+");
     const QRegExp versionIdpattern(QString::fromLatin1("SSH-(%1)-%1(?: .+)?").arg(legalString));
-    if (!versionIdpattern.exactMatch(QString::fromLatin1(m_serverId))) {
-        throw SshServerException(SSH_DISCONNECT_PROTOCOL_ERROR,
-            "Identification string is invalid.",
-            tr("Server Identification string '%1' is invalid.")
-                    .arg(QString::fromLatin1(m_serverId)));
-    }
+//    if (!versionIdpattern.exactMatch(QString::fromLatin1(m_serverId))) {
+//        throw SshServerException(SSH_DISCONNECT_PROTOCOL_ERROR,
+//            "Identification string is invalid.",
+//            tr("Server Identification string '%1' is invalid.")
+//                    .arg(QString::fromLatin1(m_serverId)));
+//    }
     const QString serverProtoVersion = versionIdpattern.cap(1);
-    if (serverProtoVersion != QLatin1String("2.0") && serverProtoVersion != QLatin1String("1.99")) {
-        throw SshServerException(SSH_DISCONNECT_PROTOCOL_VERSION_NOT_SUPPORTED,
-            "Invalid protocol version.",
-            tr("Server protocol version is '%1', but needs to be 2.0 or 1.99.")
-                    .arg(serverProtoVersion));
-    }
+//    if (serverProtoVersion != QLatin1String("2.0") && serverProtoVersion != QLatin1String("1.99")) {
+//        throw SshServerException(SSH_DISCONNECT_PROTOCOL_VERSION_NOT_SUPPORTED,
+//            "Invalid protocol version.",
+//            tr("Server protocol version is '%1', but needs to be 2.0 or 1.99.")
+//                    .arg(serverProtoVersion));
+//    }
 
     // Disable this check to accept older OpenSSH servers that do this wrong.
     if (serverProtoVersion == QLatin1String("2.0") && !hasCarriageReturn) {
@@ -669,10 +669,10 @@ void SshConnectionPrivate::sendKeepAlivePacket()
         return;
     }
 
-    Q_ASSERT(m_lastInvalidMsgSeqNr == InvalidSeqNr);
+    //Q_ASSERT(m_lastInvalidMsgSeqNr == InvalidSeqNr);
     m_lastInvalidMsgSeqNr = m_sendFacility.nextClientSeqNr();
     m_sendFacility.sendInvalidPacket();
-    m_timeoutTimer.start();
+    m_keepAliveTimer.start();
 }
 
 void SshConnectionPrivate::connectToHost()

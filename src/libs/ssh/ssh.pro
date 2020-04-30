@@ -2,6 +2,7 @@ TEMPLATE = lib
 TARGET = QSsh
 QT += network
 DEFINES += QSSH_LIBRARY
+CONFIG += c++11
 
 #Enable debug log
 #DEFINES += CREATOR_SSH_DEBUG

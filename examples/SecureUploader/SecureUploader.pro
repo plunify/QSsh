@@ -8,6 +8,7 @@ QT       += core network
 
 TARGET = SecureUploader
 TEMPLATE = app
+CONFIG += c++11
 
 INCLUDEPATH = $$PWD/../../src/libs/ssh/
 
